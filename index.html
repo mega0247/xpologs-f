@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Job Application – Wild Ewes Wooler</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"/>
+  <script>
+    // Disable right-click
+    document.addEventListener("contextmenu", function (e) {
+      e.preventDefault();
+    });
+
+    // Disable common inspect shortcuts
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "F12" || ((e.ctrlKey || e.metaKey) && e.shiftKey && ["I", "J", "C"].includes(e.key)) || ((e.ctrlKey || e.metaKey) && e.key === "u")) {
+        e.preventDefault();
+      }
+    });
+  </script>
+  <!-- Uploadcare Widget -->
+  <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>
+  <script>
+    UPLOADCARE_PUBLIC_KEY = "YOUR_UPLOADCARE_PUBLIC_KEY";
+  </script>
+  <!-- EmailJS -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    (function () {
+      emailjs.init("YOUR_EMAILJS_USER_ID");
+    })();
+  </script>
+</head>
+<body class="bg-gray-100 text-gray-900">
+  <div class="max-w-2xl mx-auto p-6 bg-white shadow-md mt-10 rounded-xl">
+    <h1 class="text-2xl font-bold mb-4">Job Application Form</h1>
+    <p class="mb-6 text-sm text-gray-600">Please fill out the form completely and upload all required documents.</p>
+
+    <form id="job-application-form" class="space-y-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label for="first-name" class="block text-sm font-medium">First Name</label>
+          <input type="text" id="first-name" name="first_name" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md"/>
+        </div>
+        <div>
+          <label for="last-name" class="block text-sm font-medium">Last Name</label>
+          <input type="text" id="last-name" name="last_name" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md"/>
+        </div>
+      </div>
+
+      <div>
+        <label for="address" class="block text-sm font-medium">Address</label>
+        <input type="text" id="address" name="address" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md"/>
+      </div>
+
+      <div>
+        <label for="dob" class="block text-sm font-medium">Date of Birth</label>
+        <input type="date" id="dob" name="date_of_birth" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md"/>
+      </div>
+
+      <div>
+        <label for="ssn" class="block text-sm font-medium">Social Security Number (SSN)</label>
+        <input type="text" id="ssn" name="ssn" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md"/>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium">Upload Driver's License – Front</label>
+        <input type="hidden" role="uploadcare-uploader" name="license_front" data-clearable />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium">Upload Driver's License – Back</label>
+        <input type="hidden" role="uploadcare-uploader" name="license_back" data-clearable />
+      </div>
+
+      <div>
+        <label for="email" class="block text-sm font-medium">Email Address</label>
+        <input type="email" id="email" name="email" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md"/>
+      </div>
+
+      <div>
+        <label for="phone" class="block text-sm font-medium">Phone Number</label>
+        <input type="tel" id="phone" name="phone" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md"/>
+      </div>
+
+      <div>
+        <label for="position" class="block text-sm font-medium">Position Applied For</label>
+        <input type="text" id="position" name="position" class="mt-1 block w-full p-2 border border-gray-300 rounded-md"/>
+      </div>
+
+      <div>
+        <label for="cover-letter" class="block text-sm font-medium">Why do you want this role?</label>
+        <textarea id="cover-letter" name="message" rows="4" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md"></textarea>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium">Reference 1 – Name</label>
+          <input type="text" name="reference1_name" class="mt-1 block w-full p-2 border border-gray-300 rounded-md"/>
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Reference 1 – Phone</label>
+          <input type="tel" name="reference1_phone" class="mt-1 block w-full p-2 border border-gray-300 rounded-md"/>
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Reference 2 – Name</label>
+          <input type="text" name="reference2_name" class="mt-1 block w-full p-2 border border-gray-300 rounded-md"/>
+        </div>
+        <div>
+          <label class="block text-sm font-medium">Reference 2 – Phone</label>
+          <input type="tel" name="reference2_phone" class="mt-1 block w-full p-2 border border-gray-300 rounded-md"/>
+        </div>
+      </div>
+
+      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+        Submit Application
+      </button>
+    </form>
+
+    <p class="text-xs text-gray-500 mt-6">Your data is secure and only used for hiring purposes.</p>
+  </div>
+
+  <script>
+    const form = document.getElementById("job-application-form");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const formData = new FormData(form);
+
+      const templateParams = {};
+      formData.forEach((value, key) => {
+        templateParams[key] = value;
+      });
+
+      emailjs.send("YOUR_EMAILJS_SERVICE_ID", "YOUR_EMAILJS_TEMPLATE_ID", templateParams)
+        .then(() => {
+          alert("Application submitted successfully!");
+          form.reset();
+        }, (error) => {
+          console.error("FAILED...", error);
+          alert("Failed to send application.");
+        });
+    });
+  </script>
+</body>
+</html>
