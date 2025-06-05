@@ -21,13 +21,13 @@
   <!-- Uploadcare Widget -->
   <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>
   <script>
-    UPLOADCARE_PUBLIC_KEY = "YOUR_UPLOADCARE_PUBLIC_KEY";
+    UPLOADCARE_PUBLIC_KEY = "42440700d563d22b885d";
   </script>
   <!-- EmailJS -->
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
   <script>
     (function () {
-      emailjs.init("YOUR_EMAILJS_USER_ID");
+      emailjs.init("Ca4c7OMBcb7RWPCev");
     })();
   </script>
 </head>
@@ -132,7 +132,7 @@
         templateParams[key] = value;
       });
 
-      emailjs.send("YOUR_EMAILJS_SERVICE_ID", "YOUR_EMAILJS_TEMPLATE_ID", templateParams)
+      emailjs.send("service_nbvrm1m", "template_dtvnj5q", templateParams)
         .then(() => {
           alert("Application submitted successfully!");
           form.reset();
